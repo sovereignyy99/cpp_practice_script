@@ -1,0 +1,14 @@
+bin/
+docs/
+input/
+obj/
+output/
+*.asta
+*.cbp
+*.depend
+*.layout
+javidx9_first_person_shooter_cpp/
+org_src/
+.vscode/
+
+
