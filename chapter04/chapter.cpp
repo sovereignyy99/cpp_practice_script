@@ -30,6 +30,16 @@ using std::vector;
 // cast: static_cast/dynamic_cast/const_cast/reinterpret_cast
 int main(int argc, char **agrv)
 {
+
+    return 0;
+}
+#endif
+
+#if 0
+//4.34
+// cast: static_cast/dynamic_cast/const_cast/reinterpret_cast
+int main(int argc, char **agrv)
+{
     cout << "hello,world.";
     cout << "test git add and commit";
     cout << "git push --set-upstream cpp_practice_script master";
