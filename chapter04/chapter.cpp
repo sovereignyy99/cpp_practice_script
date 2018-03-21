@@ -27,9 +27,17 @@ using std::vector;
 
 #if 1
 //4.34
+//! 没搞透
+//todo 花时间比较几种转换，画图
 // cast: static_cast/dynamic_cast/const_cast/reinterpret_cast
 int main(int argc, char **agrv)
 {
+    int i = 3000;
+    double j = 3.14;
+
+    // i *= static_cast<int>(j);
+    i *=j;
+    cout << i << endl;
 
     return 0;
 }
