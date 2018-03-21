@@ -31,6 +31,7 @@ using std::vector;
 int main(int argc, char **agrv)
 {
     cout << "hello,world.";
+    cout << "test git add and commit";
 
     return 0;
 }
