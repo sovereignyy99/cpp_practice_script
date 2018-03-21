@@ -32,6 +32,7 @@ int main(int argc, char **agrv)
 {
     cout << "hello,world.";
     cout << "test git add and commit";
+    cout << "test git push";
 
     return 0;
 }
