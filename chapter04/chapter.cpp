@@ -32,7 +32,7 @@ int main(int argc, char **agrv)
 {
     cout << "hello,world.";
     cout << "test git add and commit";
-    cout << "test git push";
+    cout << "git push --set-upstream cpp_practice_script master";
 
     return 0;
 }
