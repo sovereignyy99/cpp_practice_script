@@ -45,6 +45,7 @@ int main(int argc, char **agrv)
 	             << "Try again.\nInput two integers: ";
 	    }
 	}
+	cout << "hello,world.";
 
 	return 0;
 }
