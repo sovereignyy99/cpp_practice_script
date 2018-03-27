@@ -1,4 +1,5 @@
 @ECHO OFF
+cls
 
 ::HomePC
 ::cd F:\workspace\CodeBlocks\cppprimer5th\practice
@@ -9,7 +10,7 @@
 ::Thinkpad
 cd K:\workspace\CodeBlocks\cppprimer5th\practice
 
-cd .\chapter04
+cd .\chapter05
 
 ::sum
 ::.\bin\debug\chapter.exe <.\input\sum_1100_of_20_groups.txt >.\output\o1.txt
