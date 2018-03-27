@@ -23,12 +23,169 @@ using std::cout;
 using std::end;
 using std::endl;
 using std::iterator;
+using std::pair;
 using std::runtime_error;
 using std::string;
 using std::vector;
 
-
 #if 1
+// 5.20
+int main(int argc, char **agrv)
+{
+
+
+	return 0;
+}
+#endif
+
+#if 0
+// 5.19
+int main(int argc, char **agrv)
+{
+	string rsp;
+	do
+	{
+		cout << "Input two strings: ";
+		string str1, str2;
+		cin >> str1 >> str2;
+		cout << (str1 <= str2 ? str1 : str2)
+			 << " is less than the other. "
+			 << "\n\n"
+			 << "More? Enter yes or no: ";
+		cin >> rsp;
+	} while (!rsp.empty() && rsp[0] == 'y');
+	return 0;
+}
+#endif
+
+#if 0
+// 5.17
+int main(int argc, char **agrv)
+{
+	// 两个包含整数的vector,判断其中一个是否是另一个的前缀
+	// 0 1 1 2 和 0 1 1 2 3 4 5 则是前缀
+    vector<int> vec1{0, 1, 1, 2};
+    vector<int> vec2{0, 1, 1, 2, 3, 5, 8};
+
+    auto size = vec1.size() < vec2.size() ? vec1.size() : vec2.size();
+    for (decltype(vec1.size()) i = 0; i != size; ++i) {
+        if (vec1[i] != vec2[i]) { cout << "false" << endl; break; }
+        if (i == size - 1) cout << "true" << endl;
+    }
+	// 很简便，其实只需要知道小的vector的size就可以了
+	// 并不需要确定那个vector比较小
+	// 比我的代码简洁
+
+    return 0;
+}
+#endif
+
+#if 0
+// 5.14
+int main(int argc, char **agrv)
+{
+	vector<string> svec;
+	string str;
+	while (cin >> str)
+	{
+		svec.push_back(str);
+	}
+
+	vector<string>::iterator it = svec.begin(); //auto it = svec.begin();
+	int bigNum = 1, countNum = 1;
+	string bigStr, countStr;
+	while (svec.size() > 0 && it != svec.end() - 1)
+	{
+		if (*it == *(it + 1))
+		{
+			++countNum;
+			countStr = *it;
+		}
+		else
+		{
+			countNum = 1;
+		}
+		if (countNum > bigNum)
+		{
+			bigStr = countStr;
+			bigNum = countNum;
+		}
+		++it;
+	}
+
+	if (bigNum == 1)
+	{
+		cout << "there is no duplicated string." << endl;
+	}
+	else
+	{
+		cout << "the word " << bigStr << " occurred  " << bigNum << " times." << endl;
+	}
+	return 0;
+}
+#endif
+
+#if 0
+// 5.14
+int main(int argc, char **agrv)
+{
+	pair<string, int> max_duplicated;
+	int count = 0;
+	for (string str, prestr; cin >> str; prestr = str)
+	{
+		if (str == prestr)
+			++count;
+		else
+			count = 0;
+		if (count > max_duplicated.second)
+			max_duplicated = {prestr, count};
+	}
+
+	if (max_duplicated.first.empty())
+		cout << "There's no duplicated string." << endl;
+	else
+		cout << "the word " << max_duplicated.first << " occurred " << max_duplicated.second + 1 << " times. " << endl;
+
+	return 0;
+}
+#endif
+
+#if 0
+// 5.14
+int main(int argc, char **agrv)
+{
+	// 读入一段文本，记录连续出现的单词的最大次数，并打印该单词，若没有则输出没有连续单词
+	string strCurr, strPrev,strMax;
+	int iCnt=1,iMaxCnt=0;
+	while(cin>>strCurr)
+	{
+		if(strCurr==strPrev)
+		{
+			++iCnt;
+			if(iCnt>iMaxCnt)
+			{
+				iMaxCnt = iCnt;
+				strMax = strCurr;
+			}
+		}else
+		{
+			iCnt = 1;
+		}
+		strPrev = strCurr;
+	}
+	if(!strMax.empty())
+	{
+		cout << strMax << " : " << iMaxCnt << " times. " << endl;
+	}else
+	{
+		cout << "there is no pair chars." << endl;
+	}
+
+	return 0;
+}
+#endif
+
+#if 0
 // 5.12
 int main(int argc, char **agrv)
 {
