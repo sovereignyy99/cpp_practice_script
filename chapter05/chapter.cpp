@@ -32,7 +32,8 @@ using std::vector;
 // 5.20
 int main(int argc, char **agrv)
 {
-
+	cout<<"hello,world"<<endl;
+	cout<<"i am writing something using vim ^ ^"<<endl;
 
 	return 0;
 }
