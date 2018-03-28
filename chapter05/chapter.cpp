@@ -29,13 +29,128 @@ using std::string;
 using std::vector;
 
 #if 1
+// 5.25
+// throw try catch
+int main(int argc, char **agrv)
+{
+	int a, b;
+	cout << "Input two integers: ";
+	while (cin >> a >> b)
+	{
+	    try {
+	        if (b == 0) throw runtime_error("divisor is 0");
+	        cout << static_cast<double>(a) / b << endl;
+	        cout << "Input two integers: ";
+	    } catch (runtime_error err) {
+	        cout << err.what() << "\n"
+	             << "Try again.\nInput two integers: ";
+	    }
+	}
+	cout << "hello,world.";
+
+	return 0;
+}
+#endif
+
+#if 0
+// 5.24
+int main(int argc, char **agrv)
+{
+    // 输入两个整数，输出第一个数/第二个数
+    int i1, i2;
+    cin >> i1 >> i2;
+    if(i2!=0){
+        cout << i1 / i2 << endl;
+    }else
+    {
+        throw runtime_error("i2 = 0 is wrong.");
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 5.23
+int main(int argc, char **agrv)
+{
+    // 输入两个整数，输出第一个数/第二个数
+    int i1, i2;
+    cin >> i1 >> i2;
+    if(i2!=0){
+        cout << i1 / i2 << endl;
+    }else
+    {
+        cout << "divider should not equal 0.";
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 5.21
+int main(int argc, char **agrv)
+{
+    string read, tmp;
+    while ( cin >> read )
+        if (read == tmp && isupper(read[0])) break;
+        else tmp = read;
+
+    if (cin.eof()) cout << "no word was repeated." << endl;
+    else cout << read << " occurs twice in succession." << endl;
+
+    return 0;
+}
+#endif
+
+#if 0
 // 5.20
 int main(int argc, char **agrv)
 {
-	cout<<"hello,world"<<endl;
-	cout<<"i am writing something using vim ^ ^"<<endl;
+    // 读取string对象的序列直到出现两个相同的单词或所有单词读完为止
+    // 使用while循环一次读取一个单词，输出连续重复出现的单词或输出没有连续
+    string read, tmp;
+    while (cin >> read)
+        if (read == tmp)
+            break;
+        else
+            tmp = read;
 
-	return 0;
+    if (cin.eof())
+        cout << "no word was repeated." << endl;
+    else
+        cout << read << " occurs twice in succession." << endl;
+
+    return 0;
+}
+#endif
+
+#if 0
+// 5.20
+int main(int argc, char **agrv)
+{
+    // 读取string对象的序列直到出现两个相同的单词或所有单词读完为止
+    // 使用while循环一次读取一个单词，输出连续重复出现的单词或输出没有连续
+    string strCurr, strPrev;
+    bool blFlag = false;
+    cout << "Enter words: \n";
+    while (cin >> strCurr)
+    {
+        if (strCurr == strPrev)
+        {
+            cout << "continuous word: " << strCurr << endl;
+            blFlag = true;
+            break;
+        }
+        strPrev = strCurr;
+    }
+    if (!blFlag)
+    {
+        cout << "no continuous words." << endl;
+    }
+
+    return 0;
 }
 #endif
 
@@ -438,30 +553,6 @@ int main(int argc, char **agrv)
 	cout << "o : " << Count_a[3] << endl;
 	cout << "u : " << Count_a[4] << endl;
 	cout << "all : " << Count_a[5] << endl;
-
-	return 0;
-}
-#endif
-
-#if 0
-// 5.25
-// throw try catch
-int main(int argc, char **agrv)
-{
-	int a, b;
-	cout << "Input two integers: ";
-	while (cin >> a >> b)
-	{
-	    try {
-	        if (b == 0) throw runtime_error("divisor is 0");
-	        cout << static_cast<double>(a) / b << endl;
-	        cout << "Input two integers: ";
-	    } catch (runtime_error err) {
-	        cout << err.what() << "\n"
-	             << "Try again.\nInput two integers: ";
-	    }
-	}
-	cout << "hello,world.";
 
 	return 0;
 }
