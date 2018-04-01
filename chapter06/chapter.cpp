@@ -28,21 +28,61 @@ using std::runtime_error;
 using std::string;
 using std::vector;
 
-
 #if 1
-// 6.6
-unsigned int AbsValue(int);
-
+// 6.11
 int main(int argc, char **agrv)
 {
 
+	return 0;
+}
+#endif
+
+#if 0
+// 6.10
+void MySwap(int *f_iN1, int *f_iN2);
+
+int main(int argc, char **agrv)
+{
+	// 利用指针形参交换两个整数
+	int i = 10, j = 100;
+	MySwap(&i, &j);
+	cout << "i = " << i << endl;
+	cout << "j = " << j << endl;
 
 	return 0;
 }
 
-unsigned int AbsValue(int i)
+void MySwap(int *f_iN1, int *f_iN2)
 {
-	return i >= 0 ? i : -i;
+	int temp = 0;
+	temp = *f_iN1;
+	*f_iN1 = *f_iN2;
+	*f_iN2 = temp;
+}
+#endif
+
+#if 0
+// 6.7
+uint16_t FunctionCalled(void);
+
+int main(int argc, char **agrv)
+{
+	// 第一次调用时返回0 每次调用加1
+	int j = 0;
+	for (int i = 0; i <= 10; ++i)
+	{
+		j = FunctionCalled();
+		cout << j << endl;
+	}
+
+	return 0;
+}
+
+uint16_t FunctionCalled(void)
+{
+	static uint16_t fs_iCnt = 0;
+
+	return fs_iCnt++;
 }
 #endif
 
