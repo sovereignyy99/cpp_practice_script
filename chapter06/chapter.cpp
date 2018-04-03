@@ -28,13 +28,6 @@ using std::runtime_error;
 using std::string;
 using std::vector;
 
-/*
- * @Author: MattewPerry
- * @Date: 2018-04-02 23:03:58
- * @Last Modified by:   MattewPerry
- * @Last Modified time: 2018-04-02 23:03:58
- */
-
 #include <cctype>
 #include <cstdint>
 #include <cstdio>
