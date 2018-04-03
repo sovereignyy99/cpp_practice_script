@@ -29,11 +29,57 @@ using std::string;
 using std::vector;
 
 #if 1
-// 6.11
+// 6.17
 int main(int argc, char **agrv)
 {
 
+
 	return 0;
+}
+
+#endif
+
+#if 0
+// 6.12
+void MySwap(int &i, int &j);
+
+int main(int argc, char **agrv)
+{
+	int i = 100, j = 10;
+	cout << i << endl;
+	cout << j << endl;
+	MySwap(i, j);
+	cout << i << endl;
+	cout << j << endl;
+
+	return 0;
+}
+
+void MySwap(int &i, int &j)
+{
+	int temp = i;
+	i = j;
+	j = temp;
+}
+#endif
+
+#if 0
+// 6.11
+void MyReset(int &i);
+
+int main(int argc, char **agrv)
+{
+	int i = 100;
+	cout << i << endl;
+	MyReset(i);
+	cout << i << endl;
+
+	return 0;
+}
+
+void MyReset(int &i)
+{
+	i = 0;
 }
 #endif
 
