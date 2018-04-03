@@ -10,7 +10,7 @@ cls
 ::Thinkpad
 cd K:\workspace\CodeBlocks\cppprimer5th\practice
 
-cd .\chapter05
+cd .\chapter06
 
 ::sum
 ::.\bin\debug\chapter.exe <.\input\sum_1100_of_20_groups.txt >.\output\o1.txt
