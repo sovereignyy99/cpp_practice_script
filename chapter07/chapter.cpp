@@ -2,11 +2,12 @@
  * @Author: MatthewPerry
  * @Date: 2018-04-04 11:48:29
  * @Last Modified by: MatthewPerry
- * @Last Modified time: 2018-04-04 16:49:35
+ * @Last Modified time: 2018-04-05 01:32:46
  */
 
 #include "person.h"
 #include "sales_data.h"
+#include "screen.h"
 #include <cctype>
 #include <cstdint>
 #include <cstdio>
@@ -20,6 +21,43 @@
 #include <vector>
 
 #if 1
+// 7.27
+int main(int argc, char **argv)
+{
+    screen_cl MyScreen(5, 5, 'X');
+    MyScreen.Move(4, 0).Set('#').Display(std::cout);
+    std::cout << "\n";
+    MyScreen.Display(std::cout);
+    std::cout << "\n";
+
+    return 0;
+}
+#endif
+
+#if 0
+// 7.24
+int main(int argc, char **argv)
+{
+    screen_cl Screen1_cl;
+    screen_cl Screen2_cl(2,3);
+    screen_cl Screen3_cl(2,3,'#');
+    const screen_cl Screen4_cl(2,3,'@');
+
+
+    std::cout << Screen1_cl.Get() << std::endl;
+    std::cout << Screen2_cl.Get() << std::endl;
+    std::cout << Screen3_cl.Get() << std::endl;
+
+    Screen1_cl.Set('*').Display(std::cout);
+    Screen2_cl.Set('^').Display(std::cout);
+    Screen3_cl.Display(std::cout);
+    Screen4_cl.Display(std::cout);
+
+    return 0;
+}
+#endif
+
+#if 0
 // 7.22
 int main(int argc, char **argv)
 {
