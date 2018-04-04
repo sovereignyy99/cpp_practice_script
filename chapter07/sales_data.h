@@ -27,7 +27,7 @@ public:
   //
   // ─── CONSTRUCTOR ────────────────────────────────────────────────────────────────
   //
-  sales_data_cl() : strBookNo(0), uiUnitSold(0), dRevenue(0.0) {}
+  sales_data_cl() : strBookNo("random"), uiUnitSold(0), dRevenue(0.0) {}
   sales_data_cl(std::string f_strIsbn, uint16_t f_uiUnitSold, double f_dPrice) : strBookNo(f_strIsbn), uiUnitSold(f_uiUnitSold), dRevenue(f_dPrice * f_uiUnitSold) {}
   sales_data_cl(std::string f_strIsbn) : strBookNo(f_strIsbn) {}
   sales_data_cl(std::istream &is) { read(is, *this); }
