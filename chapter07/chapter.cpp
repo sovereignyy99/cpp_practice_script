@@ -2,7 +2,7 @@
  * @Author: MatthewPerry
  * @Date: 2018-04-04 11:48:29
  * @Last Modified by: MatthewPerry
- * @Last Modified time: 2018-04-05 01:32:46
+ * @Last Modified time: 2018-04-05 22:07:51
  */
 
 #include "person.h"
@@ -21,6 +21,114 @@
 #include <vector>
 
 #if 1
+// 7.43
+int main(int argc, char **argv)
+{
+
+
+    return 0;
+}
+#endif
+
+#if 0
+// 7.41
+int main(int argc, char **argv)
+{
+    sales_data_cl obj0("obj0",1,100);
+    sales_data_cl obj1;
+    sales_data_cl obj2("obj2");
+    sales_data_cl obj3(std::cin);
+    print(std::cout, obj0) << std::endl;
+    print(std::cout, obj1) << std::endl;
+    print(std::cout, obj2) << std::endl;
+    print(std::cout, obj3) << std::endl;
+
+    return 0;
+}
+#endif
+
+#if 0
+// 7.37
+int main(int argc, char **argv)
+{
+    // cin作为默认实参
+    sales_data_cl obj1;
+    print(std::cout, obj1);
+
+    return 0;
+}
+#endif
+
+#if 0
+// 7.36
+sales_data_cl obj1(std::cin);
+int main(int argc, char **argv)
+{
+    sales_data_cl obj2;
+    sales_data_cl obj3("9-99-999");
+    print(std::cout, obj1) << std::endl;
+    print(std::cout, obj2) << std::endl;
+    print(std::cout, obj3) << std::endl;
+
+    return 0;
+}
+#endif
+
+#if 0
+// 7.36
+int main(int argc, char **argv)
+{
+    sales_data_cl obj1;
+    print(std::cout, obj1);
+
+    return 0;
+}
+#endif
+
+#if 0
+// 7.33
+int main(int argc, char **argv)
+{
+    screen_cl obj1(4, 4, '*');
+    screen_cl obj2(8, 8, '#');
+    window_mgr_cl obj3;
+
+    obj3.AddScreen(obj1);
+    obj3.AddScreen(obj2);
+    int v1 = obj1.Size();
+    std::cout << "obj1 size: " << v1 << std::endl;
+    v1 = obj2.Size();
+    std::cout << "obj2 size: " << v1 << std::endl;
+    obj1.Display(std::cout);
+    std::cout << std::endl;
+    obj2.Display(std::cout);
+
+    return 0;
+}
+#endif
+
+#if 0
+// 7.31
+class Y;
+
+class X
+{
+    Y *Y_cl;
+};
+
+class Y
+{
+    X X_cl;
+};
+int main(int argc, char **argv)
+{
+    // x包含指向y的指针，y包含x对象
+
+    return 0;
+}
+#endif
+
+#if 0
 // 7.27
 int main(int argc, char **argv)
 {
