@@ -2,12 +2,15 @@
  * @Author: MatthewPerry
  * @Date: 2018-04-04 11:48:29
  * @Last Modified by: MatthewPerry
- * @Last Modified time: 2018-04-05 22:07:51
+ * @Last Modified time: 2018-04-07 13:07:38
  */
 
 #include "person.h"
+#include "my_debug.h"
 #include "sales_data.h"
+#include "account.h"
 #include "screen.h"
+#include "any_class.h"
 #include <cctype>
 #include <cstdint>
 #include <cstdio>
@@ -21,10 +24,12 @@
 #include <vector>
 
 #if 1
-// 7.43
+// 7.57
 int main(int argc, char **argv)
 {
-
+    Account obj1;
+    std::cout << obj1.rate() << std::endl;
+    std::cout << Account::rate() << std::endl;
 
     return 0;
 }
