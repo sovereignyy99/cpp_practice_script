@@ -2,9 +2,11 @@
  * @Author: MatthewPerry
  * @Date: 2018-04-04 11:48:29
  * @Last Modified by: MatthewPerry
- * @Last Modified time: 2018-04-07 13:13:40
+ * @Last Modified time: 2018-04-09 12:06:15
  */
 
+#include "person_info.h"
+#include "sales_data.h"
 #include <cctype>
 #include <cstdint>
 #include <cstdio>
@@ -14,16 +16,353 @@
 #include <initializer_list>
 #include <iostream>
 #include <iterator>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 #include <vector>
 
-
 #if 1
+// 8.14
+bool Valid(const std::string &s);
+int main(int argc, char **argv)
+{
+    // 读取数据，保存person_info到vector中
+
+    const std::string strInFile = "./input/i_person_info.txt";
+    std::ifstream ifs;
+    ifs.open(strInFile, std::ifstream::in);
+    if (!ifs)
+    {
+        std::cerr << "Fail to open i_file.\n";
+        return (-1);
+    }
+
+    std::istringstream iss;
+    std::string strLine;
+    std::vector<person_info_cl> People_cl_a;
+    while (getline(ifs, strLine))
+    {
+        iss.clear();
+        iss.str(strLine);
+        std::string strWord;
+        person_info_cl People_cl;
+        if (iss >> strWord)
+        {
+            People_cl.strName = strWord;
+        }
+        while (iss >> strWord)
+        {
+            People_cl.strPhones_a.push_back(strWord);
+        }
+        People_cl_a.push_back(People_cl);
+    }
+
+    // 校验号码是否有误，最后输出到文件
+    const std::string strOutFile = "./output/o_person_info.txt";
+    std::ofstream ofs(strOutFile, std::ofstream::app);
+    if (!ofs)
+    {
+        std::cerr << "Fail to open o_file.\n";
+        return (-1);
+    }
+
+    for (const auto &p : People_cl_a)
+    {
+        std::ostringstream ossBadNo, ossFormatted;
+        for (const auto &ph : p.strPhones_a)
+        {
+            if (!Valid(ph))
+            {
+                ossBadNo << "#" << ph;
+            }
+            else
+            {
+                ossFormatted << "*" << ph;
+            }
+
+            if (ossBadNo.str().empty())
+            {
+                ofs << p.strName << " " << ossFormatted.str() << std::endl;
+            }
+            else
+            {
+                ofs << "error: " << p.strName << " invalid number: " << ossBadNo.str() << std::endl;
+            }
+        }
+    }
+
+    return 0;
+}
+
+bool Valid(const std::string &s)
+{
+    for (const auto atCh : s)
+    {
+        if ((atCh < '0') || (atCh > '9'))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+#endif
+
+#if 0
+// 8.11
+int main(int argc, char **argv)
+{
+    // 读取数据，保存person_info到vector中
+
+    const std::string strInFile = "./input/person_info.txt";
+    std::ifstream ifs;
+    ifs.open(strInFile, std::ifstream::in);
+    if (!ifs)
+    {
+        std::cerr << "Fail to open file.\n";
+        return (-1);
+    }
+
+    std::istringstream iss;
+    std::string strLine;
+    std::vector<person_info_cl> People_cl_a;
+    while (getline(ifs, strLine))
+    {
+        iss.clear();
+        iss.str(strLine);
+        std::string strWord;
+        person_info_cl People_cl;
+        if (iss >> strWord)
+        {
+            People_cl.strName = strWord;
+        }
+        while (iss >> strWord)
+        {
+            People_cl.strPhones_a.push_back(strWord);
+        }
+        People_cl_a.push_back(People_cl);
+    }
+
+    for (auto &p : People_cl_a)
+    {
+        std::cout << p.strName << std::ends;
+        for (auto &ph : p.strPhones_a)
+        {
+            std::cout << ph << std::ends;
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 8.10
+int main(int argc, char **argv)
+{
+    // 将来自文件的行保存到vector中，使用istringstream从vector读取元素，每次读取一个单词
+    // const std::string strInFile = "./input/essay_big.txt";
+    const std::string strInFile = "./input/essay.txt";
+    std::ifstream ifs;
+    ifs.open(strInFile, std::ifstream::in);
+    if (ifs)
+    {
+        std::string strLine;
+        std::vector<std::string> strText_a;
+        while (getline(ifs, strLine))
+        {
+            strText_a.push_back(strLine);
+        }
+
+        for (const auto &katLine : strText_a)
+        {
+            std::istringstream iss1(katLine);
+            std::string strLineTemp;
+            while (iss1 >> strLineTemp)
+            {
+                std::cout << strLineTemp << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+    else
+    {
+        std::cerr << "Fail to open file.\n";
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 8.9
+std::istream &DisplayInStream(std::istream &is);
+
+int main(int argc, char **argv)
+{
+    std::string strS1 = "Hello,world.\n";
+    std::string strS2 = "Hello,cpp world.\n";
+    std::istringstream iss1(strS1);
+    std::istringstream iss2(strS2);
+
+    std::cout << iss1.str() << std::flush;
+    std::cout << iss2.str() << std::ends;
+
+    DisplayInStream(iss1);
+    DisplayInStream(iss2);
+
+    return 0;
+}
+
+std::istream &DisplayInStream(std::istream &is)
+{
+    std::string buf;
+    while (is >> buf)
+        std::cout << buf << std::ends;
+    is.clear();
+
+    return is;
+}
+#endif
+
+#if 0
+// 8.8
+int main(int argc, char **argv)
+{
+    // 从文件读入记录，文件名从main函数传入，输出追加到给定文件的末尾
+    // i_sales_data.txt    o_sales_data.txt
+    // isbn相同则合并，不同输出数据，直到记录末尾
+
+    if (argc == 3)
+    {
+        std::string strInFile = argv[1];
+        std::string strOutFile = argv[2];
+
+        std::ifstream ifs(strInFile, std::ifstream::in);
+        std::ofstream ofs(strOutFile, std::ofstream::app);
+
+        if (ifs && ofs)
+        {
+            sales_data_cl Total_cl;
+            if (read(ifs, Total_cl))
+            {
+                sales_data_cl Trans_cl;
+                while (read(ifs, Trans_cl))
+                {
+                    if (Total_cl.isbn() == Trans_cl.isbn())
+                    {
+                        Total_cl.combine(Trans_cl);
+                    }
+                    else
+                    {
+                        print(ofs, Total_cl) << std::endl;
+                        Total_cl = Trans_cl;
+                    }
+                }
+                print(ofs, Total_cl) << std::endl;
+            }
+            else
+            {
+                std::cerr << "No data?\n";
+            }
+        }
+        else
+        {
+            std::cerr << "Fail to open files.\n";
+        }
+    }
+    else
+    {
+        std::cerr << "No file?\n";
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 8.7
+int main(int argc, char **argv)
+{
+    // 从文件读入记录，文件名从main函数传入，输出到文件
+    // i_sales_data.txt    o_sales_data.txt
+    // isbn相同则合并，不同输出数据，直到记录末尾
+
+    if (argc == 3)
+    {
+        std::string strInFile = argv[1];
+        std::string strOutFile = argv[2];
+
+        std::ifstream ifs(strInFile, std::ifstream::in);
+        std::ofstream ofs(strOutFile, std::ofstream::out);
+
+        if (ifs && ofs)
+        {
+            sales_data_cl Total_cl;
+            if (read(ifs, Total_cl))
+            {
+                sales_data_cl Trans_cl;
+                while (read(ifs, Trans_cl))
+                {
+                    if (Total_cl.isbn() == Trans_cl.isbn())
+                    {
+                        Total_cl.combine(Trans_cl);
+                    }
+                    else
+                    {
+                        print(ofs, Total_cl) << std::endl;
+                        Total_cl = Trans_cl;
+                    }
+                }
+                print(ofs, Total_cl) << std::endl;
+            }
+            else
+            {
+                std::cerr << "No data?\n";
+            }
+        }
+        else
+        {
+            std::cerr << "Fail to open files.\n";
+        }
+    }
+    else
+    {
+        std::cerr << "No file?\n";
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
 // 8.6
 int main(int argc, char **argv)
 {
-
+    // 读入记录，isbn相同则合并，不同输出数据，直到记录末尾
+    sales_data_cl Total_cl;
+    if (read(std::cin, Total_cl))
+    {
+        sales_data_cl Trans_cl;
+        while (read(std::cin, Trans_cl))
+        {
+            if (Total_cl.isbn() == Trans_cl.isbn())
+            {
+                Total_cl.combine(Trans_cl);
+            }
+            else
+            {
+                print(std::cout, Total_cl) << std::endl;
+                Total_cl = Trans_cl;
+            }
+        }
+        print(std::cout, Total_cl) << std::endl;
+    }
+    else
+    {
+        std::cerr << "No data?\n";
+    }
 
     return 0;
 }
