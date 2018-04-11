@@ -1,4 +1,4 @@
-# <a name="main"></a>my naming notations(based on Google)[![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
+# <a name="main"></a>my naming notations(based on Google)
 
 **<font color=green>version:0.0.0.3.alpha</font>**
 
