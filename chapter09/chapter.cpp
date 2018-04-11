@@ -12,20 +12,370 @@
 #include <cstdlib>
 #include <cstring>
 #include <deque>
+#include <forward_list>
 #include <fstream>
 #include <initializer_list>
 #include <iostream>
 #include <iterator>
 #include <list>
 #include <sstream>
+#include <stack>
 #include <stdexcept>
 #include <string>
 #include <vector>
 
+//
+// ──────────────────────────────────────────────────────────────────────── I ──────────
+//   :::::: R E G U L A R   F U N C T I O N : :  :   :    :     :        :          :
+// ──────────────────────────────────────────────────────────────────────────────────
+//
+
+/**
+ * @brief print vector<int>
+ *
+ * @param os
+ * @param iv
+ * @param sep
+ * @return std::ostream&
+ */
+std::ostream &print(std::ostream &os, const std::vector<int> &iv, std::string sep)
+{
+    for (const auto &a : iv)
+    {
+        os << a << sep;
+    }
+    return os;
+}
+
+std::ostream &print(std::ostream &os, const std::list<int> &iv, std::string sep)
+{
+    for (const auto &a : iv)
+    {
+        os << a << sep;
+    }
+    return os;
+}
+
+std::ostream &print(std::ostream &os, const std::deque<int> &iv, std::string sep)
+{
+    for (const auto &a : iv)
+    {
+        os << a << sep;
+    }
+    return os;
+}
+
+std::ostream &print(std::ostream &os, const std::vector<std::string> &iv, std::string sep)
+{
+    for (const auto &a : iv)
+    {
+        os << a << sep;
+    }
+    return os;
+}
+
+std::ostream &print(std::ostream &os, const std::forward_list<int> &iv, std::string sep)
+{
+    for (const auto &a : iv)
+    {
+        os << a << sep;
+    }
+    return os;
+}
+
+std::ostream &print(std::ostream &os, const std::forward_list<std::string> &iv, std::string sep)
+{
+    for (const auto &a : iv)
+    {
+        os << a << sep;
+    }
+    return os;
+}
+
+//
+// ──────────────────────────────────────────────────────────────────────── II ──────────
+//   :::::: C H A P T E R   E X E R C I S E : :  :   :    :     :        :          :
+// ──────────────────────────────────────────────────────────────────────────────────
+//
+
 #if 1
-// 9.23
+// 9.52
 int main(int argc, char **argv)
 {
+    using std::cout;
+    using std::endl;
+    using std::stack;
+    using std::string;
+    auto &expr = "This is (Mooophy(awesome)((((wooooooooo))))) and (ocxs) over";
+    auto repl = '#';
+    auto seen = 0;
+
+    stack<char> stk;
+
+    for (auto c : expr)
+    {
+        stk.push(c);
+        if (c == '(')
+            ++seen; // open
+        if (seen && c == ')')
+        { // pop elements down to the stack
+            while (stk.top() != '(')
+                stk.pop();
+            stk.pop();      // including the open parenthesis
+            stk.push(repl); // push a value indicate it was replaced
+            --seen;         // close
+        }
+    }
+
+    // Test
+    string output;
+    for (; !stk.empty(); stk.pop())
+        output.insert(output.begin(), stk.top());
+    cout << output << endl; // "This is # and # over"
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.38
+int main(int argc, char **argv)
+{
+    std::vector<std::string> v;
+    std::string word;
+
+    while (std::cin >> word)
+    {
+        v.push_back(word);
+        std::cout << v.capacity() << "\n";
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.35
+int main(int argc, char **argv)
+{
+    std::vector<int> iVar1_cl{0, 1, 2, 3, 4};
+
+    std::cout << iVar1_cl.capacity() << std::endl;
+    std::cout << iVar1_cl.size() << std::endl;
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.34
+int main(int argc, char **argv)
+{
+    using std::cout;
+    using std::endl;
+    using std::vector;
+    vector<int> vi = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    auto iter = vi.begin();
+    while (iter != vi.end())
+    {
+        if (*iter % 2)
+        {
+            iter = vi.insert(iter, *iter);
+            ++iter;
+        }
+        ++iter;
+    }
+    print(std::cout, vi, " ");
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.33
+int main(int argc, char **argv)
+{
+    using std::cout;
+    using std::endl;
+    using std::vector;
+    vector<int> v{1, 2, 3, 4, 5, 6, 7, 8, 9};
+    auto begin = v.begin();
+    while (begin != v.end())
+    {
+        ++begin;
+        begin = v.insert(begin, 42);
+        ++begin;
+    }
+
+    print(std::cout, v, " ");
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.32
+int main(int argc, char **argv)
+{
+    using std::cout;
+    using std::endl;
+    using std::vector;
+    vector<int> vi = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    auto iter = vi.begin();
+    while (iter != vi.end())
+    {
+        if (*iter % 2)
+        {
+            iter = vi.insert(iter, *iter);
+            iter += 2;
+        }
+        else
+            iter = vi.erase(iter);
+    }
+
+    print(std::cout, vi, " ");
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.31
+int main(int argc, char **argv)
+{
+    using std::advance;
+    using std::cout;
+    using std::endl;
+    using std::list;
+    list<int> vi = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    auto iter = vi.begin();
+    while (iter != vi.end())
+    {
+        if (*iter % 2)
+        {
+            iter = vi.insert(iter, *iter);
+            advance(iter, 2);
+        }
+        else
+            iter = vi.erase(iter);
+    }
+    print(std::cout, vi, " ");
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.28
+void insert(std::forward_list<std::string> &flst, std::string find, std::string insrt)
+{
+    auto prev = flst.before_begin();
+    for (auto curr = flst.begin(); curr != flst.end(); prev = curr++)
+    {
+        if (*curr == find)
+        {
+            flst.insert_after(curr, insrt);
+            return;
+        }
+    }
+    flst.insert_after(prev, insrt);
+}
+
+int main(int argc, char **argv)
+{
+    std::forward_list<std::string> strVar1_cl{"hello", "cpp", "world", "!"};
+    insert(strVar1_cl, "cpp", "c++");
+    print(std::cout, strVar1_cl, " ");
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.27
+int main(int argc, char **argv)
+{
+    std::forward_list<int> iVar1_cl{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    for (auto prev = iVar1_cl.before_begin(), curr = iVar1_cl.begin(); curr != iVar1_cl.end();)
+    {
+        if (*curr & 0x01)
+        {
+            curr = iVar1_cl.erase_after(prev);
+        }
+        else
+        {
+            prev = curr++;
+        }
+    }
+    print(std::cout, iVar1_cl, " ") << std::endl;
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.26
+int main(int argc, char **argv)
+{
+    // array -> vector,list 从list删除奇数，v删除偶数
+    int ia[] = {0, 1, 1, 2, 3, 5, 8, 13, 21, 55, 89};
+    std::vector<int> iVar1_cl(ia, std::end(ia));
+    std::list<int> iVar2_cl(iVar1_cl.begin(), iVar1_cl.end());
+    std::vector<std::string> strVar4_cl{"hello", "cpp", "world"};
+
+    std::cout << "vector:\n";
+    print(std::cout, iVar1_cl, " ") << std::endl;
+
+    std::cout << "list:\n";
+    print(std::cout, iVar2_cl, " ") << std::endl;
+
+    for (auto it = iVar1_cl.begin(); it != iVar1_cl.end();)
+    {
+        if (*it & 0x01)
+        {
+            it = iVar1_cl.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
+
+    for (auto it = iVar2_cl.begin(); it != iVar2_cl.end();)
+    {
+        if (!(*it & 0x01))
+        {
+            it = iVar2_cl.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
+
+    std::cout << "vector:\n";
+    print(std::cout, iVar1_cl, " ") << std::endl;
+
+    std::cout << "list:\n";
+    print(std::cout, iVar2_cl, " ") << std::endl;
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.24
+int main(int argc, char **argv)
+{
+    // 提取vector中第一个元素
+    std::vector<int> iVar1_cl{10, 1, 2, 3};
+    std::vector<int> iVar2_cl;
+
+    std::cout << iVar1_cl.at(0) << std::endl;
+    std::cout << iVar1_cl[0] << std::endl;
+    std::cout << iVar1_cl.front() << std::endl;
+    std::cout << *iVar1_cl.begin() << std::endl;
 
     return 0;
 }
