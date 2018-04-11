@@ -11,6 +11,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <deque>
 #include <fstream>
 #include <initializer_list>
 #include <iostream>
@@ -22,6 +23,190 @@
 #include <vector>
 
 #if 1
+// 9.23
+int main(int argc, char **argv)
+{
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.22
+using std::vector;
+
+void insertDoubleValue(vector<int> &iv, int some_val)
+{
+    auto cursor = iv.size() / 2;
+    auto iter = iv.begin(), mid = iv.begin() + cursor;
+    while (iter != mid) {
+        if (*iter == some_val) {
+            iter = iv.insert(iter, 2 * some_val);
+            ++iter; ++cursor;
+            mid = iv.begin() + cursor;
+        }
+        ++iter;
+    }
+}
+
+void print(const vector<int> &iv)
+{
+    for (auto i : iv)
+        std::cout << i << " ";
+    std::cout << std::endl;
+}
+
+int main(int argc, char **argv)
+{
+    vector<int> iv = {1, 1, 1, 1, 1, 7, 1, 9};
+    insertDoubleValue(iv, 1);
+    print(iv);
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.20
+int main(int argc, char **argv)
+{
+    // list<int>拷贝到两个deque，偶数一个，奇数一个
+    std::list<int> iVar1_cl{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::deque<int> iVar2_cl;
+    std::deque<int> iVar3_cl;
+
+    for (auto atVar4 = iVar1_cl.cbegin(); atVar4 != iVar1_cl.cend(); ++atVar4)
+    {
+        if (*atVar4 % 2)
+        {
+            iVar3_cl.push_back(*atVar4);
+        }
+        else
+        {
+            iVar2_cl.push_back(*atVar4);
+        }
+    }
+
+    for (const auto &v : iVar2_cl)
+    {
+        std::cout << v << std::endl;
+    }
+
+    for (const auto &v : iVar3_cl)
+    {
+        std::cout << v << std::endl;
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.20
+int main(int argc, char **argv)
+{
+    // list<int>拷贝到两个deque，偶数一个，奇数一个
+    std::list<int> iVar1_cl{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::deque<int> iVar2_cl;
+    std::deque<int> iVar3_cl;
+
+    for (auto atVar4 = iVar1_cl.cbegin(); atVar4 != iVar1_cl.cend(); ++atVar4)
+    {
+        if (*atVar4 % 2)
+        {
+            iVar3_cl.push_back(*atVar4);
+        }
+        else
+        {
+            iVar2_cl.push_back(*atVar4);
+        }
+    }
+
+    for (const auto &v : iVar2_cl)
+    {
+        std::cout << v << std::endl;
+    }
+
+    for (const auto &v : iVar3_cl)
+    {
+        std::cout << v << std::endl;
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.19
+int main(int argc, char **argv)
+{
+    // 从标准输入读取string序列，存入list，用迭代器打印出来
+    using std::cin;
+    using std::cout;
+    using std::list;
+    using std::endl;
+    using std::string;
+
+    list<string> input;
+    for (string str; cin >> str; input.push_back(str))
+        ;
+    for (auto iter = input.cbegin(); iter != input.cend(); ++iter)
+        cout << *iter << endl;
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.18
+int main(int argc, char **argv)
+{
+    // 从标准输入读取string序列，存入deque，用迭代器打印出来
+    using std::cin;
+    using std::cout;
+    using std::deque;
+    using std::endl;
+    using std::string;
+
+    deque<string> input;
+    for (string str; cin >> str; input.push_back(str))
+        ;
+    for (auto iter = input.cbegin(); iter != input.cend(); ++iter)
+        cout << *iter << endl;
+
+    return 0;
+}
+#endif
+
+#if 0
+// 9.18
+int main(int argc, char **argv)
+{
+    // 从标准输入读取string序列，存入deque，用迭代器打印出来
+    std::deque<std::string> strVar1_cl;
+    std::string strVar2;
+    while (std::cin >> strVar2)
+    {
+        strVar1_cl.push_back(strVar2);
+    }
+
+    if (strVar1_cl.size())
+    {
+        for (auto katVar3 = strVar1_cl.cbegin(); katVar3 != strVar1_cl.cend(); katVar3++)
+        {
+            std::cout << *katVar3 << std::endl;
+        }
+    }
+    else
+    {
+        std::cerr << "No data.\n";
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
 // 9.16
 int main(int argc, char **argv)
 {
