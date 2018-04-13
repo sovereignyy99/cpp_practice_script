@@ -102,36 +102,7 @@ std::ostream &print(std::ostream &os, const std::forward_list<std::string> &iv, 
 // 9.52
 int main(int argc, char **argv)
 {
-    using std::cout;
-    using std::endl;
-    using std::stack;
-    using std::string;
-    auto &expr = "This is (Mooophy(awesome)((((wooooooooo))))) and (ocxs) over";
-    auto repl = '#';
-    auto seen = 0;
-
-    stack<char> stk;
-
-    for (auto c : expr)
-    {
-        stk.push(c);
-        if (c == '(')
-            ++seen; // open
-        if (seen && c == ')')
-        { // pop elements down to the stack
-            while (stk.top() != '(')
-                stk.pop();
-            stk.pop();      // including the open parenthesis
-            stk.push(repl); // push a value indicate it was replaced
-            --seen;         // close
-        }
-    }
-
-    // Test
-    string output;
-    for (; !stk.empty(); stk.pop())
-        output.insert(output.begin(), stk.top());
-    cout << output << endl; // "This is # and # over"
+    std::cout << "hello,world.";
 
     return 0;
 }
