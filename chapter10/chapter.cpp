@@ -5,6 +5,7 @@
  * @Last Modified time: 2018-04-16 14:48:54
  */
 
+#include "Sales_item.h"
 #include "my_little_functions.h"
 #include "sales_data.h"
 #include <algorithm>
@@ -29,9 +30,147 @@
 #include <vector>
 
 #if 1
+// 10.42
+using std::list;
+using std::string;
 
+void elimDups(list<string> &words)
+{
+    words.sort();
+    words.unique();
+}
+
+int main()
+{
+    list<string> l = {"aa", "aa", "aa", "aa", "aasss", "aa"};
+    elimDups(l);
+    for (const auto &e : l)
+        std::cout << e << " ";
+    std::cout << std::endl;
+}
+#endif
+
+#if 0
+// 10.33
 int main(int argc, char *argv[])
 {
+    if (argc != 4)
+        return -1;
+
+    std::ifstream ifs(argv[1]);
+    std::ofstream ofs_odd(argv[2]), ofs_even(argv[3]);
+
+    std::istream_iterator<int> in(ifs), in_eof;
+    std::ostream_iterator<int> out_odd(ofs_odd, " "), out_even(ofs_even, "\n");
+
+    std::for_each(in, in_eof, [&out_odd, &out_even](const int i) {
+        *(i & 0x1 ? out_odd : out_even)++ = i;
+    });
+
+    return 0;
+}
+#endif
+
+#if 0
+// 10.32
+int main(int argc, char *argv[])
+{
+    std::istream_iterator<Sales_item> in_iter(std::cin), in_eof;
+    std::vector<Sales_item> vec;
+
+    while (in_iter != in_eof)
+        vec.push_back(*in_iter++);
+    sort(vec.begin(), vec.end(),
+         [](Sales_item const &lhs, Sales_item const &rhs) { return lhs.isbn() < rhs.isbn(); });
+    for (auto beg = vec.cbegin(), end = beg; beg != vec.cend(); beg = end)
+    {
+        end = find_if(beg, vec.cend(),
+                      [beg](const Sales_item &item) { return item.isbn() != beg->isbn(); });
+        std::cout << std::accumulate(beg, end, Sales_item(beg->isbn())) << std::endl;
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 10.31
+int main(int argc, char *argv[])
+{
+    std::istream_iterator<int> in_iter(std::cin), eof;
+    std::vector<int> vec;
+    while (in_iter != eof)
+        vec.push_back(*in_iter++);
+    std::sort(vec.begin(), vec.end());
+    std::unique_copy(vec.cbegin(), vec.cend(), std::ostream_iterator<int>(std::cout, " "));
+
+    return 0;
+}
+#endif
+
+#if 0
+// 10.30
+int main(int argc, char *argv[])
+{
+    std::istream_iterator<int> in_iter(std::cin), eof;
+    std::vector<int> vec;
+    while (in_iter != eof)
+        vec.push_back(*in_iter++);
+    std::sort(vec.begin(), vec.end());
+    std::copy(vec.cbegin(), vec.cend(), std::ostream_iterator<int>(std::cout, " "));
+
+    return 0;
+}
+#endif
+
+#if 0
+// 10.29
+int main(int argc, char *argv[])
+{
+    std::ifstream ifs("./input/i1.txt");
+    std::istream_iterator<std::string> in(ifs), eof;
+    std::vector<std::string> vec;
+    std::copy(in, eof, back_inserter(vec));
+
+    // output
+    std::copy(vec.cbegin(), vec.cend(), std::ostream_iterator<std::string>(std::cout, "\n"));
+
+    return 0;
+}
+#endif
+
+#if 0
+// 10.28
+int main(int argc, char *argv[])
+{
+    // back_inserter/front_inserter/inserter
+    std::vector<int> ivec{1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    std::list<int> ilst;
+    std::list<int> ilst2;
+    std::list<int> ilst3;
+
+    std::copy(ivec.begin(), ivec.end(), back_inserter(ilst));
+    print(std::cout, ilst, " ") << std::endl;
+
+    std::copy(ivec.begin(), ivec.end(), front_inserter(ilst2));
+    print(std::cout, ilst2, " ") << std::endl;
+
+    std::copy(ivec.begin(), ivec.end(), inserter(ilst3, ilst3.begin()));
+    print(std::cout, ilst3, " ") << std::endl;
+
+    return 0;
+}
+#endif
+
+#if 0
+// 10.27
+int main(int argc, char *argv[])
+{
+    // unique_copy 将vector中不重复的元素拷贝到list
+    std::vector<int> ivec{1, 2, 3, 4, 5, 67, 67, 6, 77, 77, 77, 7, 8, 9, 0};
+    std::list<int> ilst;
+    std::unique_copy(ivec.begin(), ivec.end(), back_inserter(ilst));
+    print(std::cout, ilst, " ") << std::endl;
 
     return 0;
 }
