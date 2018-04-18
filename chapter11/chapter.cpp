@@ -35,14 +35,414 @@
 #include <vector>
 
 #if 1
-// 11.12
+// 11.32
 int main(int argc, char **argv)
 {
-    std::pair<std::string, std::string> anon{"James", "Joyce"};
-    std::pair<std::string, std::size_t> word_count;
-    std::pair<std::string, std::vector<int>> line;
 
-    std::cout << anon.first << " " << anon.second << "\n";
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.32
+int main(int argc, char **argv)
+{
+    std::multimap<std::string, std::string> authors{
+        {"alan", "DMA"},
+        {"pezy", "LeetCode"},
+        {"alan", "CLRS"},
+        {"wang", "FTP"},
+        {"pezy", "CP5"},
+        {"wang", "CPP-Concurrency"}};
+    std::map<std::string, std::multiset<std::string>> order_authors;
+
+    for (const auto &author : authors)
+        order_authors[author.first].insert(author.second);
+
+    for (const auto &author : order_authors)
+    {
+        std::cout << author.first << ": ";
+        for (const auto &work : author.second)
+            std::cout << work << " ";
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.31
+int main(int argc, char **argv)
+{
+    // 作者及作品 multimap  删除其中的元素，确保元素不在map时也能正常运行
+    std::multimap<std::string, std::string> authors{
+        {"alan", "DMA"},
+        {"pezy", "LeetCode"},
+        {"alan", "CLRS"},
+        {"wang", "FTP"},
+        {"pezy", "CP5"},
+        {"wang", "CPP-Concurrency"}};
+    // want to delete an element that author is [Alan], work is [112].
+    std::string author = "pezy";
+    std::string work = "CP5";
+
+    auto found = authors.find(author);
+    auto count = authors.count(author);
+    while (count)
+    {
+        if (found->second == work)
+        {
+            authors.erase(found);
+            break;
+        }
+        ++found;
+        --count;
+    }
+
+    for (const auto &author : authors)
+        std::cout << author.first << " " << author.second << std::endl;
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.31
+int main(int argc, char **argv)
+{
+    // 作者及作品 multimap  删除其中的元素，确保元素不在map时也能正常运行
+    std::multimap<std::string, std::vector<std::string>> m{{"szy", {"English", "Japanese", "French"}}, {"zsy", {"Germen", "Chinese", "Spanish"}}};
+    auto it = m.find("szy");
+    m.erase(it);
+    m.erase("syz");
+
+    for (auto &x : m)
+    {
+        std::cout << x.first << ":" << std::endl;
+        for (auto &y : x.second)
+        {
+            std::cout << y << std::endl;
+        }
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.28
+int main(int argc, char **argv)
+{
+    std::map<std::string, std::vector<int>> m;
+    m = {{"Alan", {
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                  }},
+         {"John", {1, 5, 6, 7, 8}}};
+
+    //! ex11.28
+    std::map<std::string, std::vector<int>>::iterator it;
+    //! ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //! type used to define this iterator.
+
+    it = m.find("Alan");
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.24-26
+int main(int argc, char **argv)
+{
+    //! ex11.24
+    std::map<int, int> m;
+    m[0] = 1;
+
+    for (const auto &e : m)
+        std::cout << e.first << " " << e.second << "\n";
+
+    //! ex11.25
+    std::vector<int> v;
+    // v[0] = 1;        //illegal
+
+    for (const auto &e : v)
+        std::cout << e << "\n";
+
+    //! ex11.26
+    std::map<int, std::string> map = {{1, "ss"}, {2, "sz"}};
+
+    std::map<int, std::string>::key_type type_to_subscript = 1;
+    //! ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //! that is, int.
+
+    std::map<int, std::string>::mapped_type type_to_return = map[type_to_subscript];
+    //! ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //! that is, std::string
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.23
+// good stuff..
+int main(int argc, char **argv)
+{
+   std::multimap<std::string, std::string> families;
+    for (std::string lastName, childName; std::cin >> childName >> lastName; families.emplace(lastName, childName));
+    for (const auto &s : families)
+        std::cout << s.second << " " << s.first << std::endl;
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.22
+int main(int argc, char **argv)
+{
+    std::map<std::string, std::vector<int>> m1;
+    std::pair<std::map<std::string, std::vector<int>>::iterator, bool> x1 = m1.insert({"hello", std::vector<int>(10, 1)});
+
+    std::cout << "x1: \n"
+              << x1.first->first << "\n";
+
+    for (auto &x : x1.first->second)
+    {
+        std::cout << x << std::endl;
+    }
+
+    std::cout << (x1.second ? "true" : "false") << "\n";
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.21
+int main(int argc, char **argv)
+{
+    std::map<std::string, size_t> word_count;
+    std::string word;
+    while (std::cin >> word)
+    {
+        ++word_count.insert(std::make_pair(word, 0)).first->second;
+    }
+
+    for (const auto &w : word_count)
+    {
+        std::cout << w.first << " " << w.second
+                  << ((w.second > 1) ? " times" : " time") << std::endl;
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.20
+int main(int argc, char **argv)
+{
+    std::map<std::string, size_t> word_count;
+    std::string word;
+    while (std::cin >> word)
+    {
+        auto ret = word_count.insert(std::make_pair(word, 1));
+        if (!ret.second)
+        {
+            ++ret.first->second;
+        }
+    }
+
+    //! print the content of the map.
+    for (const auto &w : word_count)
+    {
+        std::cout << w.first << " " << w.second
+                  << ((w.second > 1) ? " times" : " time") << std::endl;
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.15-16
+int main(int argc, char **argv)
+{
+    int i(1);
+    std::vector<int> ivec{1};
+    std::map<int, std::vector<int>> m1;
+    std::map<int, std::vector<int>>::key_type x1 = std::make_pair(i, ivec).first;
+    std::map<int, std::vector<int>>::mapped_type x2 = std::make_pair(i, ivec).second;
+    std::map<int, std::vector<int>>::value_type x3 = std::make_pair(i, ivec);
+
+    m1[1] = ivec;
+    m1[2] = ivec;
+    std::map<int, std::vector<int>>::iterator it1 = m1.begin();
+    it1->second = std::vector<int>{10};
+    for (auto &x : m1)
+    {
+        std::cout << x.first << "\n";
+        for (auto &v : x.second)
+        {
+            std::cout << v << "\n";
+        }
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.14
+int main(int argc, char **argv)
+{
+    //! define a map as required.
+    std::map<std::string, std::vector<std::pair<std::string, std::string>>>
+        famlies_map;
+    //! declare three strings to store the input
+    std::string lastName, childName, birthday;
+
+    while ([&]() { //!   a lambda to read lastName and check if should quit
+        std::cout << "last name:\n";
+        std::cin >> lastName;
+
+        return lastName != "@q";
+    }())
+    {
+        while ([&]() { //!   a lambda to read child name and birthday and check if should quit
+            std::cout << "child's name:\n";
+            std::cin >> childName;
+            std::cout << "his birthday:\n";
+            std::cin >> birthday;
+
+            return childName != "@q" && birthday != "@q";
+        }())
+        {
+            famlies_map[lastName].push_back({childName, birthday});
+            //!        ^^^^^^^^^^           ^^^^^^^^^^^^^^^^^^^^^
+            //!  use lastName as the key    create a pair using {}.
+        }
+    }
+
+    //! print the content.
+    for (const auto &e : famlies_map)
+    {
+        std::cout << e.first << ":\n";
+
+        for (const auto &l : e.second)
+        {
+            std::cout << l.first << " "
+                      << l.second << " ";
+        }
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.14
+int main(int argc, char **argv)
+{
+    // 在11.7的基础上扩展，添加一个pair的vector保存孩子的名和生日
+    std::map<std::string, std::vector<std::pair<std::string, std::string>>> family;
+    std::string LastName, ChildrenName, Birthday;
+
+    while ([&]() -> bool {
+        std::cout << "please enter last name:\n";
+        return std::cin >> LastName && LastName != "@q";
+    }())
+    {
+        while ([&]() -> bool {
+            std::cout << "please enter children's first name:\n";
+            std::cin >> ChildrenName;
+            std::cout << "please enter children's birthday:\n";
+            std::cin >> Birthday;
+            return ChildrenName != "@q" && Birthday != "@q";
+        }())
+        {
+            family[LastName].emplace_back(ChildrenName, Birthday);
+        }
+    }
+
+    for (auto e : family)
+    {
+        std::cout << e.first << ":\n";
+
+        for (auto c : e.second)
+        {
+            std::cout << c.first << " : " << c.second << "\n";
+        }
+
+        std::cout << "========================================================\n";
+    }
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.12-13
+int main(int argc, char **argv)
+{
+    // 读入string和int的序列，将每个string和int存入一个pair，pair保存到vector
+    std::vector<std::pair<std::string, int>> vec;
+    std::string s1;
+    int i1;
+
+    // 方法1
+    while ([&]() -> bool {
+        std::cout << "please enter a string:\n";
+        return std::cin >> s1 && s1 != "@q";
+    }())
+    {
+        std::cout << "please enter a integer:\n";
+        if (std::cin >> i1)
+        {
+            vec.push_back(std::pair<std::string, int>(s1, i1));
+            vec.push_back(std::make_pair(s1, i1));
+            vec.push_back({s1, i1});
+            vec.emplace_back(s1, i1);
+        }
+        else
+        {
+            std::cerr << "error: no integer.\n";
+        }
+    }
+
+    // 方法2
+    // while (std::cin >> s1 >> i1)
+    // {
+    //     vec.push_back(std::pair<std::string, int>(s1, i1));
+    //     vec.push_back(std::make_pair(s1, i1));
+    //     vec.push_back({s1, i1});
+    //     vec.emplace_back(s1, i1);
+    // }
+
+    if (vec.size())
+    {
+        for (auto &x : vec)
+        {
+            std::cout << "first of pair: "
+                      << x.first << std::endl;
+
+            std::cout << "second of pair: "
+                      << x.second << std::endl;
+
+            std::cout << "========================================================\n";
+        }
+    }
+    else
+    {
+        std::cerr << "error: no data.\n";
+    }
 
     return 0;
 }
