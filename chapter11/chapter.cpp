@@ -35,10 +35,278 @@
 #include <vector>
 
 #if 1
-// 11.32
+// 11.38
+void WordCount(void);
+void wordTransformation(void);
+
+int main(int argc, char **argv)
+{
+    WordCount();
+    wordTransformation();
+
+    return 0;
+}
+void WordCount(void)
+{
+    std::ifstream ifs_map("./input/essay.txt");
+    if (!ifs_map)
+        return;
+    std::unordered_map<std::string, size_t> word_count;
+
+    for (std::string word; ifs_map >> word; ++word_count[word])
+    {
+        ;
+    }
+
+    for (const auto &w : word_count)
+    {
+        std::cout << w.first << " occurs " << w.second
+                  << (w.second > 1 ? " times." : " time.") << std::endl;
+    }
+}
+
+void wordTransformation(void)
+{
+    std::ifstream ifs_map("./input/trans_rules.txt"), ifs_content("./input/trans_input.txt");
+    if (!ifs_map || !ifs_content)
+    {
+        std::cerr << "can't find the documents." << std::endl;
+        return;
+    }
+
+    std::unordered_map<std::string, std::string> trans_map;
+    for (std::string key, value; ifs_map >> key && getline(ifs_map, value);)
+        if (value.size() > 1)
+            trans_map[key] = value.substr(1).substr(0, value.find_last_not_of(' '));
+
+    for (std::string text, word; getline(ifs_content, text); std::cout << std::endl)
+        for (std::istringstream iss(text); iss >> word;)
+        {
+            auto map_it = trans_map.find(word);
+            std::cout << (map_it == trans_map.cend() ? word : map_it->second) << " ";
+        }
+}
+#endif
+
+#if 0
+// unordered associative container
+int main(int argc, char **argv)
+{
+    std::unordered_map<std::string, size_t> word_count;
+    std::string word;
+    while (std::cin >> word)
+    {
+        ++word_count[word];
+    }
+    for (const auto &w : word_count)
+    {
+        std::cout << w.first << " occurs " << w.second
+                  << ((w.second > 1) ? " times." : " time.") << std::endl;
+    }
+
+    std::cout << "bucket_count:\n"
+              << word_count.bucket_count();
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.35
 int main(int argc, char **argv)
 {
 
+    // In buildMap, what effect, if any, would there be from rewriting trans_map[key]
+    // = value.substr(1); astrans_map.insert({key, value.substr(1)})?
+    // • use subscript operator: if a word does appear multiple times, our loops will put
+    // the last corresponding phrase into trans_map
+    // • use insert: if a word does appear multiple times, our loops will put
+    // the first corresponding phrase into trans_map
+
+    std::cout << "hello,world.";
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.33
+// trans using map
+std::map<std::string, std::string> BuildMap(std::ifstream &ifs);
+const std::string &TransformWord(std::string &s, const std::map<std::string, std::string> &m);
+void TextTransform(std::ifstream &imap, std::ifstream &itext, std::ofstream &otext);
+
+int main(int argc, char **argv)
+{
+    std::ifstream ifs_map("./input/trans_rules.txt");
+    std::ifstream ifs_content("./input/trans_input.txt");
+    std::ofstream ofs_OText("./output/trans_output.txt");
+
+    if (ifs_map && ifs_content && ofs_OText)
+    {
+        TextTransform(ifs_map, ifs_content, ofs_OText);
+    }
+    else
+    {
+        std::cerr << "Fail to open files.\n";
+    }
+
+    return 0;
+}
+
+/**
+ * @brief build map
+ *
+ * @param ifs
+ * @return std::map<std::string, std::string>
+ */
+std::map<std::string, std::string> BuildMap(std::ifstream &ifs)
+{
+    std::map<std::string, std::string> m1;
+    for (std::string key, value; ifs >> key && getline(ifs, value);)
+    {
+        if (value.size() > 1) // 防止out of range
+        {
+            m1[key] = value.substr(1).substr(0, value.find_last_not_of(' '));
+        }
+    }
+
+    return m1;
+}
+
+const std::string &TransformWord(std::string &s, const std::map<std::string, std::string> &m)
+{
+    return m.find(s) == m.end() ? s : m.at(s);
+}
+
+void TextTransform(std::ifstream &imap, std::ifstream &itext, std::ofstream &otext)
+{
+    std::map<std::string, std::string> tmap = BuildMap(imap);
+    for (std::string line; getline(itext, line);) // i love for loop..
+    {
+        std::istringstream issLine(line);
+        for (std::string s; issLine >> s;)
+        {
+            otext << TransformWord(s, tmap) << " ";
+        }
+        otext << std::endl;
+    }
+}
+#endif
+
+#if 0
+// 11.33
+// trans using map
+using std::ifstream;
+using std::string;
+
+std::map<string, string> buildMap(ifstream &map_file)
+{
+    std::map<string, string> trans_map;
+    for (string key, value; map_file >> key && getline(map_file, value);)
+        if (value.size() > 1)
+            trans_map[key] = value.substr(1).substr(0, value.find_last_not_of(' '));
+    return trans_map;
+}
+
+const string &transform(const string &s, const std::map<string, string> &m)
+{
+    auto map_it = m.find(s);
+    return map_it == m.cend() ? s : map_it->second;
+}
+
+void word_transform(ifstream &map, ifstream &input)
+{
+    auto trans_map = buildMap(map);
+    for (string text; getline(input, text);)
+    {
+        std::istringstream iss(text);
+        for (string word; iss >> word;)
+            std::cout << transform(word, trans_map) << " ";
+        std::cout << std::endl;
+    }
+}
+int main(int argc, char **argv)
+{
+    ifstream ifs_map("../data/word_transformation_bad.txt"), ifs_content("../data/given_to_transform.txt");
+    if (ifs_map && ifs_content)
+        word_transform(ifs_map, ifs_content);
+    else
+        std::cerr << "can't find the documents." << std::endl;
+
+    return 0;
+}
+#endif
+
+#if 0
+// 11.33
+// trans using map
+int main(int argc, char **argv)
+{
+    // 给定一个string，转换成另一个string
+    // 两个文件输入，第一个文件保存规则，另一个保存待转换文本
+    std::ifstream ifsRule("./input/trans_rules.txt");
+    std::ifstream ifsText("./input/trans_input.txt");
+    std::ofstream ofsOutText("./output/trans_output.txt");
+
+    if (ifsRule && ifsText && ofsOutText)
+    {
+        // 制作规则map
+        std::map<std::string, std::vector<std::string>> rules;
+        std::string strStemp;
+        while (getline(ifsRule, strStemp))
+        {
+            std::istringstream issRules(strStemp);
+            std::string s1, s2;
+            issRules >> s1;
+            while (issRules >> s2)
+            {
+                rules[s1].push_back(s2);
+            }
+        }
+
+        // 读入文本
+        std::vector<std::string> itext;
+        std::vector<std::string> otext;
+        while (getline(ifsText, strStemp))
+        {
+            itext.push_back(strStemp);
+        }
+
+        // 解码
+        for (auto &iline : itext)
+        {
+            std::istringstream issLine(iline);
+            std::string s1, s2;
+            while (issLine >> s1)
+            {
+                if (rules.find(s1) != rules.end()) // 找到关键字
+                {
+                    for (auto &iword : rules.at(s1))
+                    {
+                        s2 += iword;
+                        s2 += " ";
+                    }
+                }
+                else
+                {
+                    s2 += s1;
+                    s2 += " ";
+                }
+            }
+            otext.push_back(s2);
+        }
+
+        // 输出文本
+        for (const auto &x : otext)
+        {
+            ofsOutText << x << std::endl;
+        }
+    }
+    else
+    {
+        std::cerr << "Fail to open files.\n";
+    }
 
     return 0;
 }

@@ -1,0 +1,19 @@
+bool: 1
+char: 1
+wchar_t: 2
+char16_t: 2
+char32_t: 4
+short: 2
+int: 4
+long: 4
+long long: 8
+float: 4
+double: 8
+long double: 12
+
+
+
+
+
+
+Done!
