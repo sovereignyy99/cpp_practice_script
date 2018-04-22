@@ -39,10 +39,52 @@
 
 
 #if 1
+// 12.20
+int main(int argc, char **argv)
+{
+    std::ifstream ifs("./input/essay.txt");
+    StrBlob blob;
+    for (std::string str; std::getline(ifs, str); )
+        blob.push_back(str);
+    for (StrBlobPtr pbeg(blob.begin()), pend(blob.end()); pbeg != pend; pbeg.incr())
+        std::cout << pbeg.deref() << std::endl;
+
+    std::cout << "\n================================================================\n";
+    std::cout << "hello cpp world!\nvery good stuff!\n";
+    std::cin.get();
+
+    return 0;
+}
+#endif
+
+#if 0
 // weak_ptr
 int main(int argc, char **argv)
 {
+    auto sp = std::make_shared<int>(99);
+    std::weak_ptr<int> wp(sp);
+    wp.reset();
+    wp = sp;
+    std::cout << "use count: " << wp.use_count() << "\n";
+    std::cout << "expired: " << wp.expired() << "\n";
+    std::cout << "lock: " << wp.lock() << "\n";
+    std::cout << "*lock: " << *(wp.lock()) << "\n";
+    wp.reset();
+    if (std::shared_ptr<int> np = wp.lock())
+    {
+        std::cout << "never display this msg.\n";
+    }
+    else
+    {
+        std::cout << "weak_ptr -> shared_ptr released.";
+    }
 
+    wp = sp;
+    if (std::shared_ptr<int> np = wp.lock())
+    {
+        std::cout << "assigned: " << *np << std::endl;
+        ;
+    }
 
     std::cout << "\n================================================================\n";
     std::cout << "hello cpp world!\nvery good stuff!\n";
