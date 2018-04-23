@@ -577,3 +577,181 @@ int main(int argc, char **argv)
     return 0;
 }
 #endif
+
+#if 0
+// dynamic memory
+int main(int argc, char **argv)
+{
+    int v1 = 0, *v3 = nullptr;
+    {
+        int v2 = 10;
+        v1 = v2;
+        v3 = &v2;
+    }
+    int v4 = 100;
+    int v5 = 100;
+    int v6 = 100;
+    std::cout << v1 << "\n";
+    std::cout << *v3 << "\n";
+
+
+    std::cout << "\n================================================================\n";
+    std::cout << "hello,cpp world.\n";
+    std::cin.get();
+
+    return 0;
+}
+#endif
+
+#if 0
+// dynamic memory
+int main(int argc, char **argv)
+{
+    int v1 = 0, *v3 = nullptr;
+    {
+        int v2 = 10;
+        v1 = v2;
+        v3 = &v2;
+    }
+    int v4 = 100;
+    std::cout << v1 << "\n";
+    std::cout << *v3 << "\n";
+
+
+    std::cout << "\n================================================================\n";
+    std::cout << "hello,cpp world.\n";
+    std::cin.get();
+
+    return 0;
+}
+#endif
+
+#if 0
+// dynamic memory
+int main(int argc, char **argv)
+{
+    std::vector<int> v1;
+    {
+        std::vector<int> v2{1, 2, 3, 4, 5};
+        v1 = v2;
+    }
+    print(std::cout, v1, " ") << std::endl;
+
+    std::cout << "\n================================================================\n";
+    std::cout << "hello,cpp world.\n";
+    std::cin.get();
+
+    return 0;
+}
+#endif
+
+#if 0
+// dynamic memory
+int main(int argc, char **argv)
+{
+    std::cout << "define a empty shared_pionter: \n";
+    std::shared_ptr<int> sp;
+
+    std::cout << "sp: " << sp << std::endl;
+    // std::cout << "*sp: " << *sp << std::endl;
+    std::cout << "&sp: " << &sp << std::endl;
+    std::cout << "sp.unique: " << sp.unique() << std::endl;
+    std::cout << "sp.use_count: " << sp.use_count() << std::endl;
+    std::cout << "================================================================\n";
+
+    std::cout << "define shared_pointer by \"make_shared function\": \n";
+    std::shared_ptr<int> v1 = std::make_shared<int>(88);
+    auto v2 = std::make_shared<std::string>(10, '9');
+    std::cout << "shared_pointer: \n";
+    std::cout << "v1: " << v1 << "\n";
+    std::cout << "*v1 " << *v1 << "\n";
+    std::cout << "&v1: " << &v1 << "\n";
+    std::cout << "v1.unique: " << v1.unique() << std::endl;
+    std::cout << "v1.use_count: " << v1.use_count() << std::endl;
+    std::cout << "================================================================\n";
+    std::cout << "v2: " << v2 << "\n";
+    std::cout << "*v2 " << *v2 << "\n";
+    std::cout << "&v2: " << &v2 << "\n";
+    std::cout << "v2.unique: " << v2.unique() << std::endl;
+    std::cout << "v2.use_count: " << v2.use_count() << std::endl;
+    std::cout << "================================================================\n";
+    std::cout << "copy v2 to v7:\n";
+    auto v7(v2);
+    std::cout << "v2: " << v2 << "\n";
+    std::cout << "*v2 " << *v2 << "\n";
+    std::cout << "&v2: " << &v2 << "\n";
+    std::cout << "v2.unique: " << v2.unique() << std::endl;
+    std::cout << "v2.use_count: " << v2.use_count() << std::endl;
+    std::cout << "================================================================\n";
+    std::cout << "v7: " << v7 << "\n";
+    std::cout << "*v7 " << *v7 << "\n";
+    std::cout << "&v7: " << &v7 << "\n";
+    std::cout << "v7.unique: " << v7.unique() << std::endl;
+    std::cout << "v7.use_count: " << v7.use_count() << std::endl;
+    std::cout << "================================================================\n";
+
+    std::cout << "define regular pointer: \n";
+    int v3 = 88, *v4 = &v3, v5 = 99, *v6 = &v5;
+    std::cout << "v4: " << v4 << "\n";
+    std::cout << "*v4: " << *v4 << "\n";
+    std::cout << "&v4: " << &v4 << "\n";
+    std::cout << "v6: " << v6 << "\n";
+    std::cout << "*v6: " << *v6 << "\n";
+    std::cout << "&v6: " << &v6 << "\n";
+    std::cout << "================================================================\n";
+
+    return 0;
+}
+#endif
+
+#if 0
+// dynamic memory
+int main(int argc, char **argv)
+{
+    std::cout << "define a empty shared_pionter: \n";
+    std::shared_ptr<int> sp;
+
+    std::cout << "sp.unique: " << sp.unique() << std::endl;
+    std::cout << "sp: " << sp << std::endl;
+    // std::cout << "*sp: " << *sp << std::endl;
+    std::cout << "sp.use_count: " << sp.use_count() << std::endl;
+    std::cout << "================================================================\n";
+
+    std::cout << "define shared_pointer by \"make_shared function\": \n";
+    std::shared_ptr<int> v1 = std::make_shared<int>(88);
+    auto v2 = std::make_shared<std::string>(10, '9');
+    std::cout << "shared_pointer: \n";
+    std::cout << "v1: " << v1 << "\n";
+    std::cout << "*v1 " << *v1 << "\n";
+    std::cout << "v1.unique: " << v1.unique() << std::endl;
+    std::cout << "v1.use_count: " << v1.use_count() << std::endl;
+    std::cout << "================================================================\n";
+    std::cout << "v2: " << v2 << "\n";
+    std::cout << "*v2 " << *v2 << "\n";
+    std::cout << "v2.unique: " << v2.unique() << std::endl;
+    std::cout << "v2.use_count: " << v2.use_count() << std::endl;
+    std::cout << "================================================================\n";
+    std::cout << "copy v2 to v7:\n";
+    auto v7(v2);
+    std::cout << "v2: " << v2 << "\n";
+    std::cout << "*v2 " << *v2 << "\n";
+    std::cout << "v2.unique: " << v2.unique() << std::endl;
+    std::cout << "v2.use_count: " << v2.use_count() << std::endl;
+    std::cout << "================================================================\n";
+    std::cout << "v7: " << v7 << "\n";
+    std::cout << "*v7 " << *v7 << "\n";
+    std::cout << "v7.unique: " << v7.unique() << std::endl;
+    std::cout << "v7.use_count: " << v7.use_count() << std::endl;
+    std::cout << "================================================================\n";
+
+    std::cout << "define regular pointer: \n";
+    int v3 = 88, *v4 = &v3, v5 = 99, *v6 = &v5;
+    std::cout << "v4: " << v4 << "\n";
+    std::cout << "*v4: " << *v4 << "\n";
+    std::cout << "v6: " << v6 << "\n";
+    std::cout << "*v6: " << *v6 << "\n";
+    std::cout << "================================================================\n";
+
+    return 0;
+}
+#endif
