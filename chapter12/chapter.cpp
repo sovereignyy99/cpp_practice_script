@@ -2,7 +2,7 @@
  * @Author: MatthewPerry
  * @Date: 2018-04-04 11:48:29
  * @Last Modified by: MatthewPerry
- * @Last Modified time: 2018-04-20 21:47:01
+ * @Last Modified time: 2018-04-27 16:55:35
  */
 
 #include "Sales_item.h"
@@ -37,12 +37,35 @@
 #include <utility>
 #include <vector>
 
-
 #if 1
+// dynamic array
+int main(int argc, char **argv)
+{
+    std::cout << "\n================================================================\n";
+    std::cout << "hello cpp world!\nvery good stuff!\n";
+    std::cin.get();
+
+    return 0;
+}
+#endif
+
+#if 0
+// 12.22
+int main(int argc, char **argv)
+{
+    std::cout << "\n================================================================\n";
+    std::cout << "hello cpp world!\nvery good stuff!\n";
+    std::cin.get();
+
+    return 0;
+}
+#endif
+
+#if 0
 // 12.20
 int main(int argc, char **argv)
 {
-    std::ifstream ifs("./input/essay.txt");
+    std::ifstream ifs("K:/workspace/codeblocks/cppprimer5th/practice/chapter12/input/essay.txt");
     StrBlob blob;
     for (std::string str; std::getline(ifs, str); )
         blob.push_back(str);
