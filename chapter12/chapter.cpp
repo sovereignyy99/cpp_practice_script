@@ -37,10 +37,128 @@
 #include <utility>
 #include <vector>
 
+
 #if 1
+// 12.26
+int main(int argc, char **argv)
+{
+
+    std::cout << "\n================================================================\n";
+    std::cout << "hello cpp world!\nvery good stuff!\n";
+    std::cin.get();
+
+    return 0;
+}
+#endif
+
+#if 0
+// 12.26
+void input_reverse_output_string(int n)
+{
+    std::allocator<std::string> alloc;
+    auto const p = alloc.allocate(n);
+    std::string s;
+    auto q = p;
+    while (std::cin >> s && q != p + n)
+        alloc.construct(q++, s);
+
+    while (q != p)
+    {
+        std::cout << *--q << " ";
+        alloc.destroy(q);
+    }
+    alloc.deallocate(p, n);
+}
+
+int main(int argc, char **argv)
+{
+    input_reverse_output_string(5);
+
+    std::cout << "\n================================================================\n";
+    std::cout << "hello cpp world!\nvery good stuff!\n";
+    std::cin.get();
+
+    return 0;
+}
+#endif
+
+#if 0
+// allocator类
+int main(int argc, char **argv)
+{
+    std::string *const p = new std::string[10];
+    std::string s;
+    std::string *q = p;
+    while (std::cin >> s && q != p + 10)
+    {
+        *q++ = s;
+    }
+    const size_t size = q - p;
+    delete[] p;
+
+    std::cout << "\n================================================================\n";
+    std::cout << "hello cpp world!\nvery good stuff!\n";
+    std::cin.get();
+
+    return 0;
+}
+#endif
+
+#if 0
+// 12.24
+int main(int argc, char **argv)
+{
+    // need to tell the size.
+    std::cout << "How long do you want the string? ";
+    int size{0};
+    std::cin >> size;
+    char *input = new char[size + 1]();
+    std::cin.ignore();
+    std::cout << "input the string: ";
+    std::cin.get(input, size + 1);
+    std::cout << input;
+    delete[] input;
+    // Test: if longer than the array size, we will lost the characters which are out of range.
+
+    std::cout << "\n================================================================\n";
+    std::cout << "hello cpp world!\nvery good stuff!\n";
+    std::cin.get();
+
+    return 0;
+}
+#endif
+
+#if 0
+// 12.23
+int main(int argc, char **argv)
+{
+    char *concatenate_string = new char[255]();
+    strcat(concatenate_string, "hello ");
+    strcat(concatenate_string, "world");
+    std::cout << concatenate_string << std::endl;
+    delete[] concatenate_string;
+
+    // std::string
+    std::string str1{"hello "}, str2{"world"};
+    std::cout << str1 + str2 << std::endl;
+
+    std::cout << "\n================================================================\n";
+    std::cout << "hello cpp world!\nvery good stuff!\n";
+    std::cin.get();
+
+    return 0;
+}
+#endif
+
+#if 0
 // dynamic array
 int main(int argc, char **argv)
 {
+    int *pia = new int[10];
+    typedef int arrT[42];
+    int *p = new arrT;
+    std::unique_ptr<int[]> up(new int[10]);
+
     std::cout << "\n================================================================\n";
     std::cout << "hello cpp world!\nvery good stuff!\n";
     std::cin.get();
