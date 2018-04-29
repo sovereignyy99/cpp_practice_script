@@ -2,13 +2,14 @@
  * @Author: MatthewPerry
  * @Date: 2018-04-04 11:48:29
  * @Last Modified by: MatthewPerry
- * @Last Modified time: 2018-04-27 16:55:35
+ * @Last Modified time: 2018-04-29 22:06:09
  */
 
 #include "Sales_item.h"
 #include "my_little_functions.h"
 #include "sales_data.h"
 #include "string_blob.h"
+#include "text_query1.h"
 #include <algorithm>
 #include <cctype>
 #include <cstdint>
@@ -38,15 +39,124 @@
 #include <vector>
 
 
-#if 1
-// 12.26
+#if 0
+// 12.28
+// 读入一个文本，输入一个单词，显示单词出现的次数
+// 打印所有出现的行，多次出现只打一次
 int main(int argc, char **argv)
 {
+    std::ifstream file("F:/workspace/codeblocks/cppprimer5th/practice/chapter12/input/essay_big.txt");
+    std::vector<std::string> input;
+
+    std::map<std::string, std::set<decltype(input.size())>> dictionary;
+    decltype(input.size()) lineNo{0};
+
+    for (std::string line; std::getline(file, line); ++lineNo)
+    {
+        input.push_back(line);
+        std::istringstream line_stream(line);
+        for (std::string text, word; line_stream >> text; word.clear())
+        {
+            std::remove_copy_if(text.begin(), text.end(), std::back_inserter(word), ispunct);
+            dictionary[word].insert(lineNo);
+        }
+    }
+
+    while (true)
+    {
+        std::cout << "enter word to look for, or q to quit: ";
+        std::string s;
+        if (!(std::cin >> s) || s == "q")
+            break;
+        auto found = dictionary.find(s);
+        if (found != dictionary.end())
+        {
+            std::cout << s << " occurs " << found->second.size() << (found->second.size() > 1 ? " times" : " time") << std::endl;
+            for (auto i : found->second)
+                std::cout << "\t(line " << i + 1 << ") " << input.at(i) << std::endl;
+        }
+        else
+            std::cout << s << " occurs 0 time" << std::endl;
+    }
 
     std::cout << "\n================================================================\n";
     std::cout << "hello cpp world!\nvery good stuff!\n";
     std::cin.get();
 
+    return 0;
+}
+#endif
+
+#if 1
+// 12.27
+// 读入一个文本，输入一个单词，显示单词出现的次数
+// 打印所有出现的行，多次出现只打一次
+void runQueries(std::ifstream &infile)
+{
+    TextQuery tq(infile);
+    while (true)
+    {
+        std::cout << "enter word to look for, or q to quit: ";
+        string s;
+        if (!(std::cin >> s) || s == "q")
+            break;
+        print(std::cout, tq.query(s)) << std::endl;
+    }
+}
+int main(int argc, char **argv)
+{
+    std::ifstream file("F:/workspace/codeblocks/cppprimer5th/practice/chapter12/input/essay_big.txt");
+    runQueries(file);
+
+    std::cout << "\n================================================================\n";
+    std::cout << "hello cpp world!\nvery good stuff!\n";
+    std::cin.get();
+
+    return 0;
+}
+#endif
+
+#if 0
+// 12.27
+// 读入一个文本，输入一个单词，显示单词出现的次数
+// 打印所有出现的行，多次出现只打一次
+int ReadFile(std::ifstream &ifs, std::vector<std::string> &itext);
+
+int main(int argc, char **argv)
+{
+    std::ifstream ifs("F:/workspace/codeblocks/cppprimer5th/practice/chapter12/input/essay_big.txt");
+    std::vector<std::string> itext;
+    if (0 == ReadFile(ifs, itext))
+    {
+        for (const auto &x : itext)
+        {
+            std::cout << x << std::endl;
+        }
+    }
+    else
+    {
+        std::cerr << "error..\n";
+    }
+
+    std::cout << "\n================================================================\n";
+    std::cout << "hello cpp world!\nvery good stuff!\n";
+    std::cin.get();
+
+    return 0;
+}
+
+int ReadFile(std::ifstream &ifs, std::vector<std::string> &itext)
+{
+    if (!ifs)
+    {
+        return -1;
+    }
+
+    std::string s1;
+    while (getline(ifs, s1))
+    {
+        itext.push_back(s1);
+    }
     return 0;
 }
 #endif
