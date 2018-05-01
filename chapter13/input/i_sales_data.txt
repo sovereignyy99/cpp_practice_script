@@ -1,0 +1,8 @@
+a_bb_ccc 10 13.99
+a_bb_ccc 10 13.99
+a_bb_ccc 10 13.99
+a_bb_ccc 10 13.99
+a_bb_ccc 10 13.99
+d_ee_fff 5 27.98
+d_ee_fff 5 27.98
+d_ee_fff 5 27.98

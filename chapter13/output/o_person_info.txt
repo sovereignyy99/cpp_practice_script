@@ -1,0 +1,38 @@
+error: Aa invalid number: #021-52666963
+error: Aa invalid number: #021-52666963
+error: Ba invalid number: #021-52666963
+error: Ba invalid number: #021-52666963
+error: Ba invalid number: #021-52666963
+error: Ca invalid number: #021-52666963
+error: Ca invalid number: #021-52666963
+error: Ca invalid number: #021-52666963
+error: Ca invalid number: #021-52666963
+error: Ca invalid number: #021-52666963
+error: Da invalid number: #021-52666963
+error: Da invalid number: #021-52666963
+error: Da invalid number: #021-52666963
+error: Da invalid number: #021-52666963
+error: Ea invalid number: #021-52666963
+error: Ea invalid number: #021-52666963
+error: Ea invalid number: #021-52666963
+error: Fa invalid number: #021-52666963
+error: Fa invalid number: #021-52666963
+error: Fa invalid number: #021-52666963
+error: Fa invalid number: #021-52666963#x138x
+error: Fa invalid number: #021-52666963#x138x
+Aa *13989845871
+Ba *13989845871
+Ba *13989845871*13989845871
+Ca *13989845871
+Ca *13989845871*13989845871
+Ca *13989845871*13989845871*13989845871
+Ca *13989845871*13989845871*13989845871*13989845871
+Da *13989845871
+Da *13989845871*13989845871
+Da *13989845871*13989845871*13989845871
+Ea *13989845871
+Ea *13989845871*13989845871
+Fa *13989845871
+Fa *13989845871*13989845871
+error: Fa invalid number: #x138x
+error: Fa invalid number: #x138x
